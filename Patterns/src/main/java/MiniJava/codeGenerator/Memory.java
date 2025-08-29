@@ -1,7 +1,5 @@
 package MiniJava.codeGenerator;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 
 /**
@@ -26,9 +24,12 @@ public class Memory {
         return codeBlock;
     }
 
-    public int getTemp() {
+    public int peekNextTemp() {
+        return lastTempIndex;
+    }
+
+    public void allocateTemp() {
         lastTempIndex += tempSize;
-        return lastTempIndex - tempSize;
     }
 
     public int getDateAddress() {
@@ -80,14 +81,18 @@ class _3AddressCode {
     }
 
     public String toString() {
-        if (operation == null) return "";
+        if (operation == null)
+            return "";
         StringBuffer res = new StringBuffer("(");
         res.append(operation.toString()).append(",");
-        if (Operand1 != null) res.append(Operand1.toString());
+        if (Operand1 != null)
+            res.append(Operand1.toString());
         res.append(",");
-        if (Operand2 != null) res.append(Operand2.toString());
+        if (Operand2 != null)
+            res.append(Operand2.toString());
         res.append(",");
-        if (Operand3 != null) res.append(Operand3.toString());
+        if (Operand3 != null)
+            res.append(Operand3.toString());
         res.append(")");
 
         return res.toString();
