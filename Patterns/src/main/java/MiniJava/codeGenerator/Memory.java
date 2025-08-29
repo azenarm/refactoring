@@ -1,5 +1,7 @@
 package MiniJava.codeGenerator;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 
 /**
@@ -15,9 +17,13 @@ public class Memory {
     private final int tempSize = 4;
 
     public Memory() {
-        codeBlock = new ArrayList<_3AddressCode>();
+        codeBlock = new ArrayList<>();
         lastTempIndex = stratTempMemoryAddress;
         lastDataAddress = stratDataMemoryAddress;
+    }
+
+    ArrayList<_3AddressCode> getCodeBlock() {
+        return codeBlock;
     }
 
     public int getTemp() {
@@ -31,36 +37,36 @@ public class Memory {
     }
 
     public int saveMemory() {
-        codeBlock.add(new _3AddressCode());
-        return codeBlock.size() - 1;
+        getCodeBlock().add(new _3AddressCode());
+        return getCodeBlock().size() - 1;
     }
 
     public void add3AddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
-        codeBlock.add(new _3AddressCode(op, opr1, opr2, opr3));
+        getCodeBlock().add(new _3AddressCode(op, opr1, opr2, opr3));
     }
 
     public void add3AddressCode(int i, Operation op, Address opr1, Address opr2, Address opr3) {
-        codeBlock.remove(i);
-        codeBlock.add(i, new _3AddressCode(op, opr1, opr2, opr3));
+        getCodeBlock().remove(i);
+        getCodeBlock().add(i, new _3AddressCode(op, opr1, opr2, opr3));
     }
 
     public int getCurrentCodeBlockAddress() {
-        return codeBlock.size();
+        return getCodeBlock().size();
     }
 
     public void pintCodeBlock() {
         System.out.println("Code Block");
-        for (int i = 0; i < codeBlock.size(); i++) {
-            System.out.println(i + " : " + codeBlock.get(i).toString());
+        for (int i = 0; i < getCodeBlock().size(); i++) {
+            System.out.println(i + " : " + getCodeBlock().get(i).toString());
         }
     }
 }
 
 class _3AddressCode {
-    public Operation operation;
-    public Address Operand1;
-    public Address Operand2;
-    public Address Operand3;
+    private Operation operation;
+    private Address Operand1;
+    private Address Operand2;
+    private Address Operand3;
 
     public _3AddressCode() {
 
